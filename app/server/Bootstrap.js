@@ -5,6 +5,7 @@ class Bootstrap {
         this.bodyParser = require('body-parser');
         this.path = require('path');
         this.MongooseUtils = require('./utils/Mongo');
+        this.ErrorController = require('./controllers/ErrorController');
         const winston = require('winston');
         this.winstonLogger = new (winston.Logger)({transports: [new (winston.transports.Console)({colorize: true})]});
 
@@ -41,8 +42,8 @@ class Bootstrap {
         app.use(this.bodyParser.json());
         app.use(this.bodyParser.urlencoded({extended: false}));
         app.use(this.Express.static(this.path.join(__dirname, '/../../public')));
-
-        app.use('/api', routes);
+        app.use(this.ErrorController.errorHandler);
+        app.use('/', routes);
 
         this.server = app.listen(this.port, err => {
             if (err) {

@@ -46,7 +46,6 @@ module.exports = {
         filename: '[name].js',
         publicPath: '/'
     },
-    watch: true,
     devServer: {
         contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true,
