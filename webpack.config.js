@@ -5,18 +5,13 @@ const webpack = require('webpack'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
-    PORT = {
-        PROD: 9000,
-        DEV: 8000
-    },
     ENV = process.env.NODE_ENV || 'dev',
-    port = ENV === 'dev' ? PORT.DEV : PORT.PROD,
     standardPlugins = [
         new CleanWebpackPlugin(['public/*']),
         new ExtractTextPlugin({filename: '[name].css', allChunks: true}),
         new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: Infinity}),
         new HtmlWebpackPlugin({
-            title: 'Account Center',
+            title: 'react-webpack-template',
             template: 'app/client/index.ejs',
             filename: 'index.html',
             inject: 'body',
@@ -56,6 +51,18 @@ const webpack = require('webpack'),
             }
         }
     ],
+    jsLoaders = [
+        {
+            loader: 'preprocess-loader'
+        }
+    ].concat(esLoaders).concat([
+        {
+            loader: 'eslint-loader',
+            options: {
+                configFile: './app/client/.eslintrc.json'
+            }
+        }
+    ]),
     cssLoaders = [
         {
             loader: 'style-loader'
@@ -96,13 +103,6 @@ module.exports = {
         path: path.join(__dirname, 'public'),
         filename: '[name]' + (ENV === 'prod' ? '.min' : '') + '.js'
     },
-    devServer: {
-        contentBase: path.join(__dirname, 'public'),
-        historyApiFallback: true,
-        outputPath: path.resolve(__dirname, '/'),
-        publicPath: path.resolve(__dirname, '/'),
-        port
-    },
     resolve: {
         extensions: ['.scss', '.css', '.js', '.jsx', '.json'],
         modules: [
@@ -115,18 +115,7 @@ module.exports = {
             {
                 test: /(\.js|\.jsx)$/,
                 exclude: [/app\/server/, /node_modules/, /bower_components/],
-                use: [
-                    {
-                        loader: 'preprocess-loader'
-                    }
-                ].concat(esLoaders).concat([
-                    {
-                        loader: 'eslint-loader',
-                        options: {
-                            configFile: './app/client/.eslintrc.json'
-                        }
-                    }
-                ])
+                use: jsLoaders
             },
             {
                 test: /(\.scss)$/,
