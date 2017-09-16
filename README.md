@@ -1,5 +1,5 @@
 # react-express-webpack-mongoose-template
-###1. Description
+### 1. Description
 Template for project connected with: 
 - express 
 - mongodb
@@ -7,11 +7,11 @@ Template for project connected with:
 - webpack
 - unit tests (mocha, chai)
 
-###2. Installation
+### 2. Installation
 ```bash
 npm install
 ```
-###3. Running (defined in package.json)
+### 3. Running (defined in package.json)
 - build react application with webpack
 ```bash
 npm run build 
