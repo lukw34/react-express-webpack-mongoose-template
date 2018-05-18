@@ -1,3 +1,3 @@
-const Bootstrap = require('./Bootstrap'),
-    app = new Bootstrap();
+const Bootstrap = require('./Bootstrap');
+const app = new Bootstrap();
 app.run();

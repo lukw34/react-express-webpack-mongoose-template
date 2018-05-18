@@ -1,99 +1,58 @@
-const webpack = require('webpack'),
-    path = require('path'),
-    CleanWebpackPlugin = require('clean-webpack-plugin'),
-    autoprefixer = require('autoprefixer'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    CopyWebpackPlugin = require('copy-webpack-plugin'),
-    ENV = process.env.NODE_ENV || 'dev',
-    standardPlugins = [
-        new CleanWebpackPlugin(['public/*']),
-        new ExtractTextPlugin({filename: '[name].css', allChunks: true}),
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: Infinity}),
-        new HtmlWebpackPlugin({
-            title: 'react-webpack-template',
-            template: 'app/client/index.ejs',
-            filename: 'index.html',
-            inject: 'body',
-            hash: true
-        }),
-        new CopyWebpackPlugin([{
-            from: 'app/client/shared/img',
-            to: 'shared/img'
-        }])
-    ],
-    prodPlugins = [
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: false,
-            sourceMap: true
-        }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true
-        }),
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        })
-    ],
-    plugins = ENV === 'production' ? standardPlugins.concat(prodPlugins) : standardPlugins,
-    esLoaders = [
-        {
-            loader: 'babel-loader',
-            options: {
-                presets: [
-                    ['es2015', {
-                        modules: false
-                    }],
-                    'react',
-                    'stage-2'
-                ]
-            }
+const webpack = require('webpack');
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const jsLoaders = [{
+    loader: 'babel-loader'
+}];
+
+const commonStylesLoader = [{
+    loader: 'style-loader'
+}, {
+    loader: 'css-loader',
+    options: {
+        modules: true,
+        autoprefixer: true,
+        importLoaders: 1,
+        localIdentName: '[name]__[local]__[hash:base64]'
+    }
+}];
+
+const postCssloader = {
+    loader: 'postcss-loader',
+    options: {
+        plugins: [autoprefixer()]
+    },
+
+};
+
+const cssLoaders = [...commonStylesLoader, postCssloader];
+
+const sassLoaders = [
+    ...commonStylesLoader, {
+        loader: 'sass-loader',
+        options: {
+            data: '@import "shared/styles/scss/variables.scss";',
+            includePaths: [path.resolve(__dirname, './app/client')]
         }
-    ],
-    jsLoaders = [
-        {
-            loader: 'preprocess-loader'
-        }
-    ].concat(esLoaders).concat([
-        {
-            loader: 'eslint-loader',
-            options: {
-                configFile: './app/client/.eslintrc.json'
-            }
-        }
-    ]),
-    cssLoaders = [
-        {
-            loader: 'style-loader'
-        },
-        {
-            loader: 'css-loader',
-            options: {
-                sourceMap: true,
-                modules: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-        },
-        {
-            loader: 'postcss-loader',
-            options: {
-                plugins: [autoprefixer()]
-            }
-        }
-    ],
-    sassLoaders = cssLoaders.concat([
-        {
-            loader: 'sass-loader',
-            options: {
-                data: '@import "shared/assets/variables.scss";',
-                includePaths: [path.resolve(__dirname, './app/client')]
-            }
-        }
-    ]);
+    }
+];
+
+const plugins = [
+    new HtmlWebpackPlugin({
+        title: 'react-webpack-template',
+        template: 'app/client/index.ejs',
+        filename: 'index.html',
+        inject: 'body',
+        hash: true
+    }),
+    new CleanWebpackPlugin(['public/*'])
+];
 
 module.exports = {
+    mode: 'development',
     entry: {
         app: path.join(__dirname, 'app/client/bootstrap.jsx'),
         vendor: ['react', 'react-dom']
@@ -101,48 +60,45 @@ module.exports = {
     context: __dirname,
     output: {
         path: path.join(__dirname, 'public'),
-        filename: '[name]' + (ENV === 'prod' ? '.min' : '') + '.js'
+        filename: '[name].[chunkhash].js'
     },
     resolve: {
-        extensions: ['.scss', '.css', '.js', '.jsx', '.json'],
+        extensions: ['.scss', '.css', '.js', '.jsx', '.json', '.png'],
         modules: [
             path.resolve(__dirname, 'node_modules'),
             path.resolve(__dirname, 'app/client/modules')
         ]
     },
     module: {
-        rules: [
-            {
-                test: /(\.js|\.jsx)$/,
-                exclude: [/app\/server/, /node_modules/, /bower_components/],
-                use: jsLoaders
-            },
-            {
-                test: /(\.scss)$/,
-                use: ENV === 'dev' ? sassLoaders : ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: sassLoaders.slice(1)
-                })
-            },
-            {
-                test: /(\.css)$/,
-                use: ENV === 'dev' ? cssLoaders : ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: cssLoaders.slice(1)
-                })
-            },
-            {
-                test: /\.(ttf|eot|jpe?g|png|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: 'shared/img/[name].[ext]'
-                        }
-                    }
-                ]
-            }
-        ]
+        rules: [{
+            test: /(\.js|\.jsx)$/,
+            exclude: [/app\/server/, /node_modules/, /bower_components/],
+            use: jsLoaders
+        }, {
+            test: /\.css$/,
+            exclude: [/node_modules/, /bower_components/],
+            use: cssLoaders
+        }, {
+            test: /\.scss$/,
+            exclude: [/node_modules/, /bower_components/],
+            use: sassLoaders
+        }, {
+            test: /\.(png|jpg|gif)$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'images/'
+                }
+            }]
+        }]
+    },
+    devServer: {
+        contentBase: path.join(__dirname, "public"),
+        compress: true,
+        progress: true,
+        watchContentBase: true,
+        port: 9000
     },
     plugins
 };
