@@ -1,33 +1,5 @@
-$imagSize: 150px;
-$imageCounter: 2;
-$margin: 75px;
-.title {
+.App {
     display: flex;
-    margin: auto;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 50px;
-    .titleText {
-        background-color: $primary;
-        border: solid $secondary-light;
-        border-radius: 20px;
-        font-size: 1.5rem;
-        text-align: center;
-        padding-top: 20px;
-    }
-    .imageContainer {
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        justify-content: center;
-        @for $i from 1 through $imageCounter {
-            .image-#{$i} {
-                position: absolute;
-                width: $imagSize;
-                left: ($i - 1) * $margin; 
-                right: 0;
-                height: $imagSize;
-            }
-        }
-    }
+    flex-direction: row;
+    height: 100vh;
 }

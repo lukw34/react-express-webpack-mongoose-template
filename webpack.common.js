@@ -16,7 +16,7 @@ const commonStylesLoader = [{
         modules: true,
         autoprefixer: true,
         importLoaders: 1,
-        localIdentName: '[name]__[local]__[hash:base64]'
+        localIdentName: '[name]__[local]'
     }
 }];
 
@@ -55,7 +55,7 @@ module.exports = {
     mode: 'development',
     entry: {
         app: path.join(__dirname, 'app/client/bootstrap.jsx'),
-        vendor: ['react', 'react-dom']
+        vendor: ['react', 'react-dom', 'prop-types']
     },
     context: __dirname,
     output: {

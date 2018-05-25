@@ -1,0 +1,67 @@
+$webpack-color: #2B3A42;
+$react-color: #2B3A42;
+$js-color: #f7df1e;
+$mongodb-color: #42494f;
+$node-color: #333;
+$sass-color: #808c99;
+
+.Technology {
+  flex: 1 1 auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid white;
+  border-left: 0 solid white;
+
+  &:first-child {
+      border-left: 0 solid white;
+  }
+  &:last-child {
+      border-right: 0 solid white;
+  }
+
+  img {
+    width: 200px;
+    height: 200px;
+  
+  }
+
+  &.webpack {
+      background-color: $webpack-color;
+      img {
+          animation: rotate infinite 4s linear;
+      }
+  }
+  &.react {
+      background-color: $react-color;
+      img {
+          animation: rotate infinite 4s linear;
+      }
+  }
+  &.js {
+    background-color: $js-color;
+  }
+  &.express {
+    img {
+        height: 120px;
+    }
+  }
+  &.mongodb {
+    background-color: $mongodb-color;
+  }
+  &.node {
+    background-color: $node-color;
+  }
+  &.sass {
+    background-color: $sass-color;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
