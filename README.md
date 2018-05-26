@@ -9,23 +9,27 @@ Template for project connected with:
 
 ### 2. Installation
 ```bash
-npm install
+yarn
 ```
 ### 3. Running (defined in package.json)
 - build react application with webpack
 ```bash
-npm run build 
+yarn build 
 ```
 - start webpack server with development mode
 ```bash
-npm run start:dev
+yarn start:dev:server
 ```
 - run node server
 ```bash
-npm run start:server
+yarn start:server
 ```
 - execute unit tests
 ```bash
-npm run test
+yarn test:client
+yarn test:server
 ```
-
+- execute eslint check
+```bash
+yarn eslint
+```
