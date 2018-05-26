@@ -45,7 +45,6 @@
     "chai-enzyme": "^1.0.0-bet.0",
     "chai-http": "^4.0.0",
     "clean-webpack-plugin": "^0.1.15",
-    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
