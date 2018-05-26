@@ -8,7 +8,7 @@ class Logger {
     }
 
     _getDate() {
-        return this.dateFormat(new Date(), "mmmm dS, yyyy, h:MM:ss TT");
+        return this.dateFormat(new Date(), 'mmmm dS, yyyy, h:MM:ss TT');
     }
 
     warn(warning) {

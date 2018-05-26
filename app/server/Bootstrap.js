@@ -19,8 +19,8 @@ class Bootstrap {
         this.bodyParser = bodyParser;
         this.MongooseUtils = MongooseUtils;
         this.ErrorController = ErrorController;
-        this.winstonLogger = new(winston.Logger)({
-            transports: [new(winston.transports.Console)({
+        this.winstonLogger = new (winston.Logger)({
+            transports: [new (winston.transports.Console)({
                 colorize: true
             })]
         });

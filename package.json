@@ -7,9 +7,12 @@
     "build": "./node_modules/.bin/webpack --config=webpack.prod.js --mode production --colors --progress",
     "watch:dev": "./node_modules/.bin/webpack --config=webpack.dev.js --mode development --colors --progress --watch",
     "start:dev:server": "./node_modules/.bin/webpack-dev-server --config=webpack.dev.js --colors --mode development",
-    "start:server": "node app/server/index.js",
+    "start:server": "node app/server",
     "test:client": "NODE_ENV=test node_modules/mocha/bin/mocha --require babel-core/register --require test/client/index.js test/client/**/*.spec.js",
-    "test:server": "NODE_ENV=test node_modules/mocha/bin/mocha --require babel-core/register --require test/server/index.js test/server/**/*.spec.js"
+    "test:server": "NODE_ENV=test node_modules/mocha/bin/mocha --require babel-core/register --require test/server/index.js test/server/**/*.spec.js",
+    "eslint:client": "node_modules/.bin/eslint --ext .jsx,.js \"./app/client/\"",
+    "eslint:server": "node_modules/.bin/eslint --ext .js \"./app/server/\"",
+    "eslint": "yarn eslint:server && yarn eslint:client"
   },
   "author": "Lukasz Walewski",
   "contributors": [
@@ -29,6 +32,9 @@
     "winston": "^2.3.1",
     "winston-request-logger": "^1.0.7"
   },
+  "pre-commit": [
+    "eslint"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
@@ -45,6 +51,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-nodejs": "^2.0.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
@@ -54,8 +61,9 @@
     "html-webpack-plugin": "^3.2.0",
     "ignore-styles": "^5.0.1",
     "mocha": "^5.1.1",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.9.0",
     "postcss-loader": "~2.1.5",
+    "pre-commit": "^1.2.2",
     "preprocess-loader": "^0.2.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",

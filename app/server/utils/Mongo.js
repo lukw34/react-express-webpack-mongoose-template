@@ -10,8 +10,7 @@ class Mongo {
             this.mongoose.connect(url, error => {
                 error ? reject(error) : resolve();
             });
-        })
-
+        });
     }
 
     getList(Instance) {
