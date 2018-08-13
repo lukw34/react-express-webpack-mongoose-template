@@ -1,26 +1,15 @@
+const mongoose = require('mongoose');
+
 class Mongo {
-    constructor(mongoose) {
-        this.mongoose = mongoose;
+    constructor() {
+        this.client = null;
     }
 
-    connect(url = '') {
-        return new Promise((resolve, reject) => {
-            global.logger.log('Connecting to MongoDB...');
-
-            this.mongoose.connect(url, error => {
-                error ? reject(error) : resolve();
-            });
-        });
+    async connect({ host = 'localhost', port = 27017, name = '' }) {
+        global.logger.log('Connecting to MongoDB...');
+        this.client = await mongoose.connect(`mongodb://${host}:${port}/${name}`, { useNewUrlParser: true });
+        global.logger.log('MongoDB connection is established.');
     }
-
-    getList(Instance) {
-        return Instance.find({});
-    }
-
-    getLimitedList(Instance, limit) {
-        return this.getList(Instance).limit(limit);
-    }
-
 }
 
 module.exports = Mongo;
