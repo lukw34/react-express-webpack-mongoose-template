@@ -1,8 +1,19 @@
 {
   "extends": "nodejs",
+  "plugins": [
+    "mocha"
+  ],
+  "globals": {
+    "expect": true,
+    "chai": true
+  },
+  "env": {
+    "mocha": true
+  },
   "rules": {
+    "no-underscore-dangle": [0],
     "indent": ["error", 4, { "SwitchCase": 1 }],
     "eol-last": [0],
-    "strict": "off"
+    "strict": [0]
   }
 }

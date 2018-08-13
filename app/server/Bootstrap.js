@@ -1,25 +1,26 @@
-const Logger = require('./utils/Logger');
+const winstonRequestLogger = require('winston-request-logger');
 const Express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const winston = require('winston');
-const mongoose = require('mongoose');
-const winstonRequestLogger = require('winston-request-logger');
+
+const Logger = require('./utils/Logger');
 const MongooseUtils = require('./utils/Mongo');
 const routes = require('./routes');
 const ErrorController = require('./controllers/ErrorController');
 const {
     NODE_ENV,
-    MONGO_DB_URL
+    DB_HOST,
+    DB_PORT,
+    DB_NAME
 } = require('./config');
 
 class Bootstrap {
     constructor() {
         this.Express = Express;
         this.bodyParser = bodyParser;
-        this.MongooseUtils = MongooseUtils;
         this.ErrorController = ErrorController;
-        this.winstonLogger = new (winston.Logger)({
+        this.winstonLogger = winston.createLogger({
             transports: [new (winston.transports.Console)({
                 colorize: true
             })]
@@ -28,28 +29,27 @@ class Bootstrap {
         this.isTest = NODE_ENV === 'test';
         this.port = process.env.PORT || 9004;
 
-        //global variable
 
-        global.logger = new Logger();
-        global.Mongo = new this.MongooseUtils(mongoose);
+        global.logger = new Logger(this.isTest);
+        global.Mongo = new MongooseUtils();
     }
 
-    run() {
+    async run() {
         global.logger.log('Run application ...');
-        if (MONGO_DB_URL) {
-            global.Mongo.connect(this.mongo).then(() => {
-                this._startExpress();
-            }).catch(({
-                message
-            }) => {
-                global.logger.error(message);
+        try {
+            await global.Mongo.connect({
+                host: DB_HOST,
+                port: DB_PORT,
+                name: DB_NAME
             });
-        } else {
-            this._startExpress();
+            return this.startExpress();
+        } catch (e) {
+            global.logger.error(`Mongo: ${e.message}`);
+            return this.startExpress();
         }
     }
 
-    _startExpress() {
+    startExpress() {
         const app = new this.Express();
 
         if (!this.isTest) {
@@ -74,18 +74,20 @@ class Bootstrap {
         this.server = app.listen(this.port, err => {
             if (err) {
                 global.logger.error('Application runtime error !');
+                global.logger.error(err);
             } else {
                 global.logger.log(`Application start on port: ${this.port}`);
             }
         });
 
-        this.server.on('error', () => {
+        this.server.on('error', err => {
             global.logger.error('Application runtime error !');
+            global.logger.error(err.message);
             process.exit(1);
         });
 
-        return app;
+        return this.server;
     }
 }
 
-module.exports = Bootstrap;
+module.exports = new Bootstrap();
