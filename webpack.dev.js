@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+require('webpack');
 const path = require('path');
 const merge = require('webpack-merge')
 
@@ -8,7 +8,7 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.join(__dirname, "public"),
+        contentBase: path.join(__dirname, 'public'),
         compress: true,
         progress: true,
         watchContentBase: true,
