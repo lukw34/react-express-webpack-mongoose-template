@@ -36,7 +36,7 @@
     "winston-request-logger": "^1.0.7"
   },
   "pre-commit": [
-    "eslint"
+    "eslint  "
   ],
   "devDependencies": {
     "autoprefixer": "^9.1.0",
