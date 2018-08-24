@@ -21,8 +21,8 @@ $sass-color: #808c99;
   }
 
   img {
-    width: 200px;
-    height: 200px;
+    max-width: 12vw;
+    max-height: 12vw;
   
   }
 
@@ -40,11 +40,6 @@ $sass-color: #808c99;
   }
   &.js {
     background-color: $js-color;
-  }
-  &.express {
-    img {
-        height: 120px;
-    }
   }
   &.mongodb {
     background-color: $mongodb-color;

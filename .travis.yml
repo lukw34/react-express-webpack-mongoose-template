@@ -1,20 +1,29 @@
 language: node_js
+sudo: required
 node_js:
-  - '8'
+- '8'
 before_install:
-  - 'yarn'
+- yarn
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 jobs:
   include:
-   - stage: 'eslint'
-     name: 'Code quality check'
-     script: 'yarn eslint'
-   - stage: 'test-client'
-     name: 'Test client-side code'
-     script: 'yarn test:client'
-   - stage: 'test-server'
-     name: 'Test server-side code'
-     script: 'yarn test:server'
+  - stage: eslint
+    name: Code quality check
+    script: yarn eslint
+  - stage: test-client
+    name: Test client-side code
+    script: yarn test:client
+  - stage: test-server
+    name: Test server-side code
+    script: yarn test:server
+deploy:
+  provider: heroku
+  api_key:
+    secure: mEjt2AlndK8npvEtU5h8TFswzgcj0tq11LNRBBsCMAQwy2T7WehvbNsX7w1y+9vJ5g3xoAPdepPuMy3mIMVl9u23+5uP2o6PLIyVcMotGvo4GCXw43H/fczStxkjLSp6m9EFEoPTiuixHQSuskwk4wbR8c9ZdSkI9jk4MIh2OAj5rUm5u2FUR5W/VOR9tAFIoUIeSUVQixp1jiBjkBUpA2KoyxP6Qsgm5UWKobgSgNzK/rTtlQSyO2JeS0cBy1+8uCAc+PRiz6qt1PVU6gcJRFKA8LfPBKwBFigsT5m3VEmbTqae7hbAbyHgY2r3J+CK7AmpsNbD+ejIbwmRt2zFcDSR0bBnzYBlFGWOzIxia6QVJ57jyTkuFnLg/s5l8kv2BPL45YWMWXwVR8brjekwIo/UEXNHwQAXjq2g0/izUjVH3aMhv2V7YQYOMfTiHlTzBeShPmdIF1Vfp6sxCTFyG09IveyepbcFIS67fd0pIWPlEfNqrsbbQuZ3p0oWY8L9z/7uqHH72IaKqlXs4RwD5IOvVQXDvdzI2rfu2lVpCCC6JSvlKuJQaxAfvqOcWbcfppjx9QTj4aF35jkTF5wg5R6n4ioKy2lnjVO7Dc4b1w98iAYGVbwLd3qeQMAxaI4FATuTlzH//yzK9xvC5EVDP6skKBPgWk2WBtCCopGgY94=
+  app: rewt-staging
+  on:
+    repo: lukw34/react-express-webpack-template
+    branch: master
