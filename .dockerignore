@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+
+.eslintrc.json
+.travis.yml
+README.md
+
+jest.*.js
+
+app/**/*.spec.js
