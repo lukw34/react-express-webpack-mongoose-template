@@ -19,10 +19,3 @@ jobs:
   - stage: test-server
     name: Test server-side code
     script: yarn test:server
-deploy:
-  provider: heroku
-  api_key:
-    secure: QnLysijItTJSmt2XrT0cZn39vHKHxeHDfVb5epzhXlO+NqL8OSS5PyEKMLteWvJi5q5iC3YahaaT3Jq1ZtYkjF550Q7ThOn5JMKIznQCwSTV7QRKW1Ctj8aLaAR+Y7eQtdHjK6JRMQfCuixImPnM8v87tFKvIAlCRnVDeKaiw5cYk3Vd3AqB6obIaTNtOkmVQczo4pcTS8W6fxtI/hJUiyWVNQ102qUPkB6+qDNX9JjubRAXQ4h44g6HWOM1mzRqPlwr33w84p8NHui//iv+/Tv6QNpRpRYArVNqfaLxSMM87U1bOQjLIXSfPyFsJ03eYAJQxF0fXB9InIRI4G311jx52eLZAOiBIbX5lR4iA5xUJEOP6sj9sfJEpJAfje9Hb7tfDjRyBd5BRomsun74UY3aksI8XeZJIuo1a0in5RX/teLwxZZVYgWwSaEcjmB7yLcWbrrSwEb/bjF3eJb3XFUYJHArwx1ShMS248ig0uILi7sbb6wAM0+dReSpieQtL6GDB4G154vI4Zs5wy3stGUwcX23obc9C3eNzhJbLsJJDERYFA2UErKhNLBF3XPioRPZX+PVB8ZDTnN2HF+iVIDAeju6UjfKLEwz66nvUz69nhVZA4GssAa7sSjN7sYENyT9FZpSHjtPJp4RqYypJckTYzEpO3ZPLeqC3UVy6K8=
-  app: rewt-staging
-  on:
-    repo: lukw34/react-express-webpack-template
