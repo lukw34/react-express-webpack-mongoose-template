@@ -13,18 +13,15 @@ jobs:
   - stage: eslint
     name: Code quality check
     script: yarn eslint
-  - stage: test-client
+  - stage: tests
     name: Test client-side code
     script: yarn test:client
-  - stage: test-server
+  - stage: tests
     name: Test server-side code
     script: yarn test:server
 deploy:
   provider: heroku
-  api_key:
-    secure: Yy8io5uIOCjcSdqvxUlOrsciPaE7eoCI045c+Vwp03S5mkY9E+ivhvOCddAvrJNKVdsHwXGyuPAC6q+oOlsox5LG6lA/dNqwgna9Xb0r2l3LJFB26rMsFf1fOi8CTrrIonKl4bBemUu97eGwteulxJJmiUI/jDbCyQE0PdVeoZ988GVfd6OtyMrwTHQM8SB4yYisEGDKNwVnGuJc2HhpeHcsctiW1EnRChq+hNvNK8xoEChmNQcyXaEiP9Q3jJXHO3IevEXwyHt/j77ZHmnGsmab8kyO0rrhy2LSv5f3EmcKxyOfz2uik+mFgmwXwYknndb5S75x136tVP3awbPPj36uDC+wI/3+kPz7rleqCy9a7Uu1ZQOahpgi2n9BEmA3y42qPrz+ZnGTQ/xtK8Zo0pCsRdiqqa+oDIXohpVWq3d/EKhrcqP8ZKbsmpMUisb5JGi4BuP2Yr/Lia+utWsF8G7XHnUMZxSKAJNJQkmjXUIe7+6uiId2BjITk/n/zw2B3sdU7Ov6MfMD5sItoB8932MIWViIYeLlgxaH5DATIpcDTbONhMczDDAQ82WpuG6UTds4cvEaM9Q6jzO3hmbEi3W/TGp0IBNJgaib6UzGeaPSj+1NkmsxbxCbdFew1fQ7fXATA2cVgLobTj7u2lbn2WkzhhBjU0+lnwe/DFOvQC0=
+  api_key: $HEROKU_API_KEY
   app:
     develop: rewt-staging
     master: rewt-production
-  on:
-    repo: lukw34/react-express-webpack-template
