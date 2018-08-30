@@ -1,7 +1,7 @@
-language: node_js
+language: node_jsnode_js:- '8'
+
 sudo: required
-node_js:
-- '8'
+
 before_install:
 - yarn
 cache:
@@ -19,3 +19,7 @@ jobs:
   - stage: tests
     name: Test server-side code
     script: yarn test:server
+  - stage: deploy
+    name: Create docker image
+    script: sh docker_push.sh
+    if: tag = true
