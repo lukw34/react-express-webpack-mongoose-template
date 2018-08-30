@@ -19,9 +19,3 @@ jobs:
   - stage: tests
     name: Test server-side code
     script: yarn test:server
-deploy:
-  provider: heroku
-  api_key: $HEROKU_API_KEY
-  app:
-    develop: rewt-staging
-    master: rewt-production
