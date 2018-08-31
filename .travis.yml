@@ -3,22 +3,21 @@ language: node_jsnode_js:- '8'
 sudo: required
 
 before_install:
-- yarn
+- npm install
 cache:
-  yarn: true
   directories:
   - node_modules
 jobs:
   include:
   - stage: eslint
     name: Code quality check
-    script: yarn eslint
+    script: npm run eslint
   - stage: tests
     name: Test client-side code
-    script: yarn test:client
+    script: npm run test:client
   - stage: tests
     name: Test server-side code
-    script: yarn test:server
+    script: npm run test:server
   - stage: deploy
     name: Create docker image
     script: sh docker_push.sh
