@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "8.10"
 sudo: required
-before_install:
+install:
 - npm install
 cache:
   directories:
@@ -26,6 +26,7 @@ jobs:
     deploy:
       provider: releases
       api_key: $GITHUB_OAUTH_TOKEN
+      run: echo "Test............"
       skip_cleanup: true
       on:
         tags: true
