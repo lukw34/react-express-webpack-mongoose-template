@@ -23,6 +23,7 @@ jobs:
     script: npm run build  
   - stage: GitHub Release
     script: sh docker_push.sh"
+    if: tag == true
     deploy:
       provider: releases
       api_key: $GITHUB_OAUTH_TOKEN
