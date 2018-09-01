@@ -18,7 +18,14 @@ jobs:
   - stage: tests
     name: Test server-side code
     script: npm run test:server
-  - stage: release
-    name: Release new version
-    script: sh docker_push.sh
-    if: tag == true
+  - stage: build
+    name: Build web app
+    script: npm run build  
+  - stage: GitHub Release
+    script: sh docker_push.sh"
+    deploy:
+      provider: releases
+      api_key: $GITHUB_OAUTH_TOKEN
+      skip_cleanup: true
+      on:
+        tags: true
