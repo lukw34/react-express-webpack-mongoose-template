@@ -16,12 +16,7 @@ jobs:
   - stage: tests
     name: Test server-side code
     script: npm run test:server
-deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: XJdl9QlvefVA++PelTXvCpX4fnkYzIUt7uT0bXnoI1cFjGnHn8GPQ4BzyJFTrUeuoSExFNO5xVycL7qxDldA1APiRsONKIAWsxNHY/KhD15A/xzDlRB+IIXqUkdFvLhg4OnPp1dGDVz6uyaYYMHDZXRq5+h0KCglvSCgTDc9watSH3q1/P5yNABMBgVZ5az2sXq4VREEDXxfWaZiqhIJp+zPMhsok+kJwwFoPSI2oc2UndcMOFmpaKj3lsHq0Q4eGhLR6CYpweCDBelwb9RGLE8SktT615PIEROvyXsbaVGGgzu0MiiudFw81eyLfhq9KrUmKYRq89J4ZqVF7sJ5L2cnZIshOB11J7JEFAioDGoJ8S0prgdXn8DXPD3l2YzK1pZdiOQKdCam6RU2mqTy067liBck4vJWXbSb+A3+zQB3sB7fkZI5/SIQTCiSXO+SIQe/6B2Dds846oGrrYawameClMvdmRuzLTu6NHqDhyuyR03wkG1dtfg5r3dcxHfrI63ET9KOR42ObalAwEZXFFpPZnEcgvWIbpALz0RZsghRYIK4aHMy6QO1MAd+L1CGEp1F1WFTzdeBJBrkjm0mNMFA8wtmTi2EhCrNknIriA4EIowrDu20kTmioqTQu4a5V6KefPQ0HR0veUv7NdJLhgXd/G5SzJD7KbxJTmlfYD0=
-  file: 'dist/'
-  run: 'sh docker_push.sh'
-  on:
-    tags: true
+  - stage: release
+    name: Release new version
+    script: sh docker_push.sh
+    if: tag == true
