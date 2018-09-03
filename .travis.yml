@@ -21,39 +21,11 @@ jobs:
   - stage: build
     name: Build web app
     script: npm run build  
-  - stage: GitHub Release
-    script: bash docker_push.sh"
-    if: tag = true
-    deploy:
-      provider: releases
-      api_key: $GITHUB_OAUTH_TOKEN
-      script: echo "Test Release............"
-      skip_cleanup: true
-      on:
-        tags: true
   - stage: SCript Release
     script: echo "Test Script............"
-    if: tag = true
+    if: tag IS present
     deploy:
       provider: script
       script: bash docker_push.sh"
       api_key: $GITHUB_OAUTH_TOKEN
       skip_cleanup: true
-      on:
-        tags: true
-  - stage: SCript Release
-    script: echo "Test Script............22"
-    on:
-      tags: true
-    deploy:
-      provider: script
-      script: bash docker_push.sh"
-      api_key: $GITHUB_OAUTH_TOKEN
-      skip_cleanup: true
-deploy:
-  provider: script
-  script: bash docker_push.sh"
-  api_key: $GITHUB_OAUTH_TOKEN
-  skip_cleanup: true
-  on:
-    tags: true
