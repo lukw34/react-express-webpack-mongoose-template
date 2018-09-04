@@ -1,21 +1,32 @@
 language: node_js
-sudo: required
 node_js:
-- '8'
-before_install:
-- yarn
+  - "8.10"
+  - "8.11"
+  - "8.2"
+  - "7.9"
+sudo: required
+install:
+- npm install
 cache:
-  yarn: true
   directories:
   - node_modules
 jobs:
   include:
   - stage: eslint
     name: Code quality check
-    script: yarn eslint
-  - stage: tests
-    name: Test client-side code
-    script: yarn test:client
-  - stage: tests
-    name: Test server-side code
-    script: yarn test:server
+    script: npm run eslint
+  - stage: build
+    name: Build web app
+    script: npm run build  
+  - stage: release
+    script: echo Release....
+    name: Docker push image
+    if: tag IS present
+    deploy:
+      provider: script
+      script: bash docker_push.sh
+      skip_cleanup: true
+      on:
+        tags: true
+notifications:
+  email: false
