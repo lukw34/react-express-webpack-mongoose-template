@@ -15,12 +15,6 @@ jobs:
   - stage: eslint
     name: Code quality check
     script: npm run eslint
-  - stage: tests
-    name: Test client-side code
-    script: npm run test:client
-  - stage: tests
-    name: Test server-side code
-    script: npm run test:server
   - stage: build
     name: Build web app
     script: npm run build  
