@@ -21,11 +21,13 @@ jobs:
   - stage: build
     name: Build web app
     script: npm run build  
-  - stage: SCript Release
-    script: bash docker_push.sh
+  - stage: release
+    script: echo Release....
+    name: Docker push image
     if: tag IS present
     deploy:
       provider: script
-      script: bash docker_push.sh"
-      api_key: $GITHUB_OAUTH_TOKEN
+      script: bash docker_push.sh
       skip_cleanup: true
+      on:
+        tags: true
