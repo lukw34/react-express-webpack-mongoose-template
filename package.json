@@ -1,6 +1,6 @@
 {
   "name": "react-express-webpack-mongoose-template",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "eslint:client": "node_modules/.bin/eslint --ext .jsx,.js \"./app/client/\"",
     "eslint:server": "node_modules/.bin/eslint --ext .js \"./app/server/\"",
     "eslint": "npm run eslint:server && npm run eslint:client",
-    "test": "npm run test:client && npm run test:server"
+    "test": "npm run test:client && npm run test:server",
+    "postinstall": "npm run build"
   },
   "author": "Lukasz Walewski",
   "contributors": [
