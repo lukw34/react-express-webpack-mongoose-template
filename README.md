@@ -4,11 +4,11 @@ React-express-webpack-mongoose-template (rewt) is a project with basic setup for
 In this rojeect I am using:
 - React (16.4)
 - mongodb
-- react
+- express.js
 - webpack
 - unit tests (mocha, chai)
 
-In this project I applied CI/CD with Travis. Development process based on GitFlow [link gitflow]. Every pull request should pass all jobs defined in travis.yml. Application is released and deployed to two environments created wit heroku:
+In this project I applied CI/CD with Travis. Development process based on [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html). Every pull request should pass all jobs defined in travis.yml. Application is released and deployed to two environments created wit heroku:
 - [rewt-staging](https://rewt-staging.herokuapp.com/) (Merge to develop)
 - [rewt-production](https://rewt-production.herokuapp.com/) (Merge to master)
 
