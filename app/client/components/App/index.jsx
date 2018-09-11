@@ -7,6 +7,7 @@ import styles from './styles.scss';
 
 const App = ({technologies = []}) => (
     <div className={styles.App}>
+    asdasdasdasd
         {
             technologies.map(technology => <Technology key={technology} name={technology} />)
         }

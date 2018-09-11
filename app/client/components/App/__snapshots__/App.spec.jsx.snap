@@ -4,6 +4,7 @@ exports[`Example <App /> test.  render component. 1`] = `
 <div
   className="App"
 >
+  asdasdasdasd
   <Technology
     key="test"
     name="test"
