@@ -59,7 +59,7 @@ module.exports = {
     context: __dirname,
     output: {
         path: path.join(__dirname, 'public'),
-        filename: '[name].[chunkhash].js'
+        filename: '[name].[hash].js'
     },
     resolve: {
         extensions: ['.scss', '.css', '.js', '.jsx', '.json', '.png'],

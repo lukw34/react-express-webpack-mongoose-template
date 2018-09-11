@@ -4,9 +4,10 @@ $js-color: #f7df1e;
 $mongodb-color: #42494f;
 $node-color: #333;
 $sass-color: #808c99;
+$travis-color: #666;
 
 .Technology {
-  flex: 1 1 auto; 
+  flex: 0 0 11.11%; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,8 +22,8 @@ $sass-color: #808c99;
   }
 
   img {
-    max-width: 12vw;
-    max-height: 12vw;
+    max-width: 7vw;
+    max-height: 7vw;
   
   }
 
@@ -49,6 +50,9 @@ $sass-color: #808c99;
   }
   &.sass {
     background-color: $sass-color;
+  }
+  &.travis {
+    background-color: $travis-color;
   }
 }
 
