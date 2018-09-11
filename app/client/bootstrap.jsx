@@ -6,5 +6,5 @@ import './shared/styles/scss/main.scss';
 import App from './components/App';
 
 ReactDOM.render(<App
-    technologies={['react', 'sass', 'webpack', 'express', 'js', 'node', 'mongodb']}
+    technologies={['react', 'sass', 'webpack', 'express', 'js', 'node', 'mongodb', 'docker', 'travis']}
 />, document.getElementById('app'));
